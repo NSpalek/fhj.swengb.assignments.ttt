@@ -1,4 +1,4 @@
-package fhj.swengb.assignments.ttt.rladstaetter
+package fhj.swengb.assignments.ttt.nspalek
 
 import scala.collection.Set
 
@@ -57,13 +57,21 @@ case object PlayerA extends Player
 
 case object PlayerB extends Player
 
+case object Player extends Player
+
 object TicTacToe {
 
   /**
     * creates an empty tic tac toe game
     * @return
     */
-  def apply(): TicTacToe = ???
+
+  def apply(): TicTacToe = TicTacToe(Map((TopLeft, Player), (TopCenter, Player), (TopRight, Player),
+                                         (MiddleLeft, Player), (MiddleCenter, Player), (MiddleRight, Player),
+                                         (BottomLeft, Player), (BottomCenter, Player), (BottomRight, Player)))
+
+
+
 
   /**
     * For a given tic tac toe game, this function applies all moves to the game.
@@ -72,13 +80,34 @@ object TicTacToe {
     * @param moves
     * @return
     */
-  def play(t: TicTacToe, moves: Seq[TMove]): TicTacToe = ???
+  def play(t: TicTacToe, moves: Seq[TMove]): TicTacToe = {
+
+    var player:Player = PlayerA
+
+    for(move <- moves){
+      t.turn(move, player)
+
+      if(player.equals(PlayerA))
+        player = PlayerB
+    }
+
+    return t
+  }
 
   /**
     * creates all possible games.
     * @return
     */
-  def mkGames(): Map[Seq[TMove], TicTacToe] = ???
+  def mkGames(): Map[Seq[TMove], TicTacToe] = {
+
+    val allGames : Map[Seq[TMove], TicTacToe] = Map()
+
+
+    ???
+
+
+    return allGames
+  }
 
 }
 
@@ -89,8 +118,7 @@ object TicTacToe {
   *
   * The nextplayer parameter defines which player makes the next move.
   */
-case class TicTacToe(moveHistory: Map[TMove, Player],
-                     nextPlayer: Player = PlayerA) {
+case class TicTacToe(moveHistory: Map[TMove, Player], nextPlayer: Player = PlayerA) {
 
   /**
     * outputs a representation of the tic tac toe like this:
@@ -113,12 +141,18 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     *
     * The game is over if either of a player wins or there is a draw.
     */
-  val gameOver = ???
+  val gameOver = {
+
+    if(winner == None)
+      false
+    else
+      true
+  }
 
   /**
     * the moves which are still to be played on this tic tac toe.
     */
-  val remainingMoves: Set[TMove] = ???
+  val remainingMoves: Set[TMove] = moveHistory.filter(_._2.equals(Player)).keySet
 
   /**
     * given a tic tac toe game, this function returns all
@@ -141,7 +175,16 @@ case class TicTacToe(moveHistory: Map[TMove, Player],
     * @param player the player
     * @return
     */
-  def turn(p: TMove, player: Player): TicTacToe = ???
+  def turn(move: TMove, player: Player): TicTacToe = {
+    if(moveHistory.get(move).contains(Player)){
+      if(player.equals(PlayerA))
+        TicTacToe(moveHistory + (move -> player), PlayerB)
+      else
+        TicTacToe(moveHistory + (move -> player))
+    }
+    else
+      TicTacToe(moveHistory)
+  }
 
 }
 
