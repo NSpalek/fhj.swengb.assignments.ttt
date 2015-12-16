@@ -132,12 +132,12 @@ case class TicTacToe(moveHistory: Map[TMove, Player], nextPlayer: Player = Playe
     */
   def asString(): String = {
     var field: String = "|---|---|---|\n" +
-                        "|   |   |   |\n" +
-                        "|---|---|---|\n" +
-                        "|   |   |   |\n" +
-                        "|---|---|---|\n" +
-                        "|   |   |   |\n" +
-                        "|---|---|---|\n"
+      "|   |   |   |\n" +
+      "|---|---|---|\n" +
+      "|   |   |   |\n" +
+      "|---|---|---|\n" +
+      "|   |   |   |\n" +
+      "|---|---|---|\n"
 
     val pos = Map(0->16, 1->20, 2->24, 3->44, 4->48, 5->52, 6->72, 7->76, 8->80)
 
@@ -147,7 +147,7 @@ case class TicTacToe(moveHistory: Map[TMove, Player], nextPlayer: Player = Playe
       else if (p == PlayerB)
         field = field.updated(pos(m.idx), "O").mkString
     }
-    field
+    return field
   }
 
   /**
