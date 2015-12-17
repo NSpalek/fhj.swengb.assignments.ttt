@@ -5,12 +5,11 @@ import javafx.event.EventHandler
 import java.util.ResourceBundle
 import javafx.application.Application
 import javafx.fxml.{FXML, Initializable, FXMLLoader}
-import javafx.scene.control.Button
+import javafx.scene.control.{Label, Button}
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.GridPane
 import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
-import javax.swing.JOptionPane.showMessageDialog
 
 import scala.util.control.NonFatal
 
@@ -51,6 +50,7 @@ class TicTacToeController extends Initializable {
   @FXML var close: Button = _
   @FXML var newGame: Button = _
   @FXML var gridPane: GridPane = _
+  @FXML var label: Label =_
 
   var game = TicTacToe.apply()
   val moveMap: Map[Int, TMove] =  Map(0 -> TopLeft, 1 -> TopCenter, 2 -> TopRight, 3 -> MiddleLeft, 4 -> MiddleCenter, 5 -> MiddleRight,
@@ -69,6 +69,8 @@ class TicTacToeController extends Initializable {
     bottom_left.setOnMouseClicked(mouseClickEvent)
     bottom_center.setOnMouseClicked(mouseClickEvent)
     bottom_right.setOnMouseClicked(mouseClickEvent)
+
+    label.setText("It's " + game.nextPlayer + "'s turn")
   }
 
   val mouseClickCloseEvent: EventHandler[_ >: MouseEvent] = new EventHandler[MouseEvent] {
@@ -92,14 +94,15 @@ class TicTacToeController extends Initializable {
               onClick.setText("O")
 
             game = game.turn(moveMap.get(onClick.getId.toInt).get , game.nextPlayer)
+            label.setText("It's " + game.nextPlayer + "'s turn")
 
             if(game.gameOver){
               gridPane.setDisable(true)
 
               if(game.nextPlayer.equals(PlayerB))
-                println("PlayerA won!")
+                label.setText("PlayerA won!")
               else
-                println("PlayerB won!")
+                label.setText("PlayerB won!")
             }
           }
         }
@@ -118,7 +121,18 @@ class TicTacToeController extends Initializable {
   }
 
   def reset: Unit = {
-
+    gridPane.setDisable(false)
+    top_left.setText("")
+    top_center.setText("")
+    top_right.setText("")
+    middle_left.setText("")
+    middle_center.setText("")
+    middle_right.setText("")
+    bottom_left.setText("")
+    bottom_center.setText("")
+    bottom_right.setText("")
+    game = TicTacToe()
+    label.setText("It's " + game.nextPlayer + "'s turn")
   }
 
 }
