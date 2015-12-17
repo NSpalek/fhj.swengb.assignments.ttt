@@ -7,8 +7,10 @@ import javafx.application.Application
 import javafx.fxml.{FXML, Initializable, FXMLLoader}
 import javafx.scene.control.Button
 import javafx.scene.input.MouseEvent
+import javafx.scene.layout.GridPane
 import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
+import javax.swing.JOptionPane.showMessageDialog
 
 import scala.util.control.NonFatal
 
@@ -48,6 +50,7 @@ class TicTacToeController extends Initializable {
   @FXML var bottom_right: Button = _
   @FXML var close: Button = _
   @FXML var newGame: Button = _
+  @FXML var gridPane: GridPane = _
 
   var game = TicTacToe.apply()
   val moveMap: Map[Int, TMove] =  Map(0 -> TopLeft, 1 -> TopCenter, 2 -> TopRight, 3 -> MiddleLeft, 4 -> MiddleCenter, 5 -> MiddleRight,
@@ -90,7 +93,14 @@ class TicTacToeController extends Initializable {
 
             game = game.turn(moveMap.get(onClick.getId.toInt).get , game.nextPlayer)
 
+            if(game.gameOver){
+              gridPane.setDisable(true)
 
+              if(game.nextPlayer.equals(PlayerB))
+                println("PlayerA won!")
+              else
+                println("PlayerB won!")
+            }
           }
         }
         case _ => assert(false)
@@ -108,7 +118,7 @@ class TicTacToeController extends Initializable {
   }
 
   def reset: Unit = {
-    game = TicTacToe.apply()
+
   }
 
 }

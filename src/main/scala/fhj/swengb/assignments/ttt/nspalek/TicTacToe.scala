@@ -1,6 +1,7 @@
 package fhj.swengb.assignments.ttt.nspalek
 
 import scala.collection.Set
+import scala.collection.mutable.MutableList
 
 /**
   * models the different moves the game allows
@@ -184,21 +185,21 @@ case class TicTacToe(moveHistory: Map[TMove, Player], nextPlayer: Player = Playe
     */
   def winner: Option[(Player, Set[TMove])] = {
     val winnerLines = List((0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6))
-    var movesA: List[Int] = List()
-    var movesB: List[Int] = List()
+    var movesA: MutableList[Int] = MutableList()
+    var movesB: MutableList[Int] = MutableList()
 
     for(move <- moveHistory){
       if(move._2.equals(PlayerA))
-        movesA :+ (move._1.idx)
+        movesA += (move._1.idx)
       else
-        movesB :+ (move._1.idx)
+        movesB += (move._1.idx)
     }
 
     for(wl <- winnerLines){
       if(movesA.contains(wl._1) && movesA.contains(wl._2) && movesA.contains(wl._3))
-        Some(PlayerA, moveHistory.keySet)
+        return Some(PlayerA, moveHistory.keySet)
       else if(movesB.contains(wl._1) && movesB.contains(wl._2) && movesB.contains(wl._3))
-        Some(PlayerB, moveHistory.keySet)
+        return Some(PlayerB, moveHistory.keySet)
     }
     None
   }
