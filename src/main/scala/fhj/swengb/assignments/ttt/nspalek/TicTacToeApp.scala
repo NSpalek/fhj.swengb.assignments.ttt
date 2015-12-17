@@ -22,7 +22,16 @@ object TicTacToeApp {
 class TicTacToeApp extends javafx.application.Application {
 
   val fxmlMain = "/fhj/swengb/assignments/ttt/TicTacToeApp.fxml"
+  val cssMain = "/fhj/swengb/assignments/ttt/TicTacToe.css"
+
   val loader = new FXMLLoader(getClass.getResource(fxmlMain))
+
+  def setSkin(stage: Stage, fxml: String, css: String): Boolean = {
+    val scene = new Scene(loader.load[Parent]())
+    stage.setScene(scene)
+    stage.getScene.getStylesheets.clear()
+    stage.getScene.getStylesheets.add(css)
+  }
 
   override def start(stage: Stage): Unit =
     try {
@@ -30,6 +39,7 @@ class TicTacToeApp extends javafx.application.Application {
       loader.load[Parent]() // side effect
       val scene = new Scene(loader.getRoot[Parent])
       stage.setScene(scene)
+      stage.getScene.getStylesheets.add(cssMain)
       stage.show()
     } catch {
       case NonFatal(e) => e.printStackTrace()
@@ -104,6 +114,8 @@ class TicTacToeController extends Initializable {
               else
                 label.setText("PlayerB won!")
             }
+            else if(game.moveHistory.size == 9)
+              gridPane.setDisable(true)
           }
         }
         case _ => assert(false)
@@ -121,7 +133,6 @@ class TicTacToeController extends Initializable {
   }
 
   def reset: Unit = {
-    gridPane.setDisable(false)
     top_left.setText("")
     top_center.setText("")
     top_right.setText("")
@@ -131,6 +142,7 @@ class TicTacToeController extends Initializable {
     bottom_left.setText("")
     bottom_center.setText("")
     bottom_right.setText("")
+    gridPane.setDisable(false)
     game = TicTacToe()
     label.setText("It's " + game.nextPlayer + "'s turn")
   }
