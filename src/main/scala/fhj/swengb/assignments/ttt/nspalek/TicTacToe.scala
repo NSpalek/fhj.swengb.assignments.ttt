@@ -132,12 +132,12 @@ case class TicTacToe(moveHistory: Map[TMove, Player], nextPlayer: Player = Playe
     */
   def asString(): String = {
     var field: String = "|---|---|---|\n" +
-      "|   |   |   |\n" +
-      "|---|---|---|\n" +
-      "|   |   |   |\n" +
-      "|---|---|---|\n" +
-      "|   |   |   |\n" +
-      "|---|---|---|\n"
+                        "|   |   |   |\n" +
+                        "|---|---|---|\n" +
+                        "|   |   |   |\n" +
+                        "|---|---|---|\n" +
+                        "|   |   |   |\n" +
+                        "|---|---|---|\n"
 
     val pos = Map(0->16, 1->20, 2->24, 3->44, 4->48, 5->52, 6->72, 7->76, 8->80)
 
@@ -184,21 +184,21 @@ case class TicTacToe(moveHistory: Map[TMove, Player], nextPlayer: Player = Playe
     */
   def winner: Option[(Player, Set[TMove])] = {
     val winnerLines = List((0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6))
-    val movesA: List[Int] = List()
-    val movesB: List[Int] = List()
+    var movesA: List[Int] = List()
+    var movesB: List[Int] = List()
 
     for(move <- moveHistory){
-      if(moveHistory.get(move._1).contains(PlayerA))
-        movesA.apply(move._1.idx)
+      if(move._2.equals(PlayerA))
+        movesA :+ (move._1.idx)
       else
-        movesB.apply(move._1.idx)
+        movesB :+ (move._1.idx)
     }
 
     for(wl <- winnerLines){
       if(movesA.contains(wl._1) && movesA.contains(wl._2) && movesA.contains(wl._3))
-        Some(PlayerA, moveHistory)
+        Some(PlayerA, moveHistory.keySet)
       else if(movesB.contains(wl._1) && movesB.contains(wl._2) && movesB.contains(wl._3))
-        Some(PlayerB, moveHistory)
+        Some(PlayerB, moveHistory.keySet)
     }
     None
   }
@@ -211,7 +211,7 @@ case class TicTacToe(moveHistory: Map[TMove, Player], nextPlayer: Player = Playe
     * @return
     */
   def turn(move: TMove, player: Player): TicTacToe = {
-    if(moveHistory.contains(move)){
+    if(!moveHistory.contains(move)){
       if(player.equals(PlayerA))
         TicTacToe(moveHistory + (move -> player), PlayerB)
       else
