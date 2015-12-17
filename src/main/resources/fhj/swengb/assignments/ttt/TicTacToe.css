@@ -1,0 +1,21 @@
+#border {
+    -fx-background-color: #cccccc;
+}
+
+#0, #1, #2, #3, #4, #5, #6, #7, #8 {
+   -fx-font-size: 2em;
+   -fx-border-color: grey;
+   -fx-color: #cbff66;
+}
+
+#label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+}
+
+#button {
+    -fx-font-size: 1.2em;
+    -fx-max-width: Infinity;
+    -fx-border-color: grey;
+}
+

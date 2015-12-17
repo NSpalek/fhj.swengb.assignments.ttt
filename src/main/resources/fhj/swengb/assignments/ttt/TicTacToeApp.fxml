@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fhj.swengb.assignments.ttt.nspalek.TicTacToeController">
+<BorderPane id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fhj.swengb.assignments.ttt.nspalek.TicTacToeController">
    <left>
       <GridPane fx:id="gridPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -37,9 +37,9 @@
       </GridPane>
    </left>
    <right>
-      <GridPane prefHeight="400.0" prefWidth="149.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="400.0" prefWidth="176.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="128.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -47,9 +47,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="newGame" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="New Game" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button fx:id="close" mnemonicParsing="false" text="Close" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label fx:id="label" GridPane.rowIndex="1" />
+            <Button id="button" fx:id="newGame" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="New Game" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button id="button" fx:id="close" mnemonicParsing="false" text="Close" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label id="label" fx:id="label" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </right>
